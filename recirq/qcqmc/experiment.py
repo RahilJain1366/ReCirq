@@ -19,7 +19,7 @@ import attrs
 import cirq
 import numpy as np
 import qsimcirq
-from pytz import timezone
+from zoneinfo import ZoneInfo
 
 from recirq.qcqmc import blueprint, config, data, for_refactor
 
@@ -143,7 +143,7 @@ def get_samples_from_simulation(
             circuits.
 
     """
-    simulator = qsimcirq.QSimSimulator()
+    simulator = qsimcirq.QSimSimulator(seed=seed)
 
     sampled_bitstrings = []
 
@@ -172,7 +172,7 @@ def get_experimental_metadata() -> Dict[str, object]:
     """
 
     date_time = datetime.now()
-    pacific_tz = timezone("US/Pacific")
+    pacific_tz = ZoneInfo("US/Pacific")
     pacific_date_time = date_time.astimezone(pacific_tz)
 
     formatted_date_time = pacific_date_time.strftime("%m/%d/%Y, %H:%M:%S")
